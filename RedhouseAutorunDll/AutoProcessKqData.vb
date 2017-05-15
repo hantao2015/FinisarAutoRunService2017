@@ -393,7 +393,7 @@ Public Class AutoProcessKqMonthlyDataByDaily : Implements HS.Platform.IAutoRunCo
 
             lngrecid = Convert.ToInt64(hs("REC_ID"))
             'C3_429373825045
-            strSQl = "select * from CT429373729010 where   C3_429788235937='Y' and  isnull(C3_429373825045,'')<>'' and  C3_429373875109='" + yearmonth + "' and (C3_429374330280=" + lngdeptid.ToString() + "  or C3_429374330108=" + lngdeptid.ToString() + "  or  C3_429374331639=" + lngdeptid.ToString() + "  or  C3_429374332264=" + lngdeptid.ToString() + " or C3_429374332795=" + lngdeptid.ToString() + ") "
+            strSQl = "select distinct C3_429373824779,C3_429373825045,C3_429373825263,C3_429374111210 from view_kqprocesslist where   C3_429788235937='Y' and  isnull(C3_429373825045,'')<>'' and  C3_429373875109='" + yearmonth + "' and (C3_429374330280=" + lngdeptid.ToString() + "  or C3_429374330108=" + lngdeptid.ToString() + "  or  C3_429374331639=" + lngdeptid.ToString() + "  or  C3_429374332264=" + lngdeptid.ToString() + " or C3_429374332795=" + lngdeptid.ToString() + ") "
             dt = CmsTable.GetDatasetForHostTable(pst, lngResid, False, "", "", strSQl, 0, 0, lngReccount, "", True).Tables(0)
             hs2save2.Add("C3_427156560908", "正在添加数据分析任务...")
             hs2save2.Add("C3_427156561111", "共" + dt.Rows.Count.ToString() + "人次")

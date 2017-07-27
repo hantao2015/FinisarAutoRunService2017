@@ -207,7 +207,7 @@ Public Class AutoProcessKqDataASynProcess : Implements HS.Platform.IAutoRunCode
                     aThread(i).Start()
 
                 Catch ex As Exception
-                    SLog.Err("KqDataASynProcess2-" + ex.Message.ToString(), ex, False)
+                    SLog.Err("KqDataASynProcess2-KqDataASynProcess" + ex.Message.ToString(), ex, False)
                 End Try
 
             Next
@@ -653,7 +653,7 @@ Public Class KqDataASynProcessformonthlyrpt : Implements HS.Platform.IAutoRunCod
 
 
                 Catch ex As Exception
-                    SLog.Err("KqDataASynProcess2-" + ex.Message.ToString(), ex, False)
+                    SLog.Err("KqDataASynProcess2-KqDataASynProcessformonthlyrpt" + ex.Message.ToString(), ex, False)
                 End Try
             Next
 

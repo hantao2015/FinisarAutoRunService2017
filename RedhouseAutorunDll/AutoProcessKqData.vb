@@ -196,6 +196,7 @@ Public Class AutoProcessKqDataASynProcess : Implements HS.Platform.IAutoRunCode
                     lngRecID = Convert.ToInt64(ds.Tables(0).DefaultView.Item(i)("REC_ID"))
                     hs.Clear()
                     hs.Add("C3_424442209948", "P")
+                    rp.EnableAutoEmailSend = False
                     CmsTable.EditRecord(pst, lngResid, lngRecID, hs, rp)
                     strExcuteSql = strProce + " " + lngRecID.ToString()
                     CmsDbStatement.m_dbc = pst.Dbc
@@ -280,12 +281,14 @@ Public Class AutoProcessKqMonthlyData : Implements HS.Platform.IAutoRunCode
                     If CmsDbStatement.CountBySql(pst.Dbc, strCountSql, Nothing) = 0 Then
                         hs2save.Add("PNID", strPnid)
                         hs2save.Add("YEARMONTH", yearmonth)
-                        CmsTable.AddRecord(pst, lngresid2add, hs2save, Nothing)
+                        rp.EnableAutoEmailSend = False
+                        CmsTable.AddRecord(pst, lngresid2add, hs2save, rp)
                     Else
                         strwhere = " pnid=" + strPnid + "  and yearmonth=" + yearmonth
                         hs = CmsTable.GetRecordHashtableByUniqueWhere(pst, lngresid2add, strwhere, False)
                         lngrecid = Convert.ToInt64(hs("REC_ID"))
-                        CmsTable.EditRecord(pst, lngresid2add, lngrecid, hs, Nothing)
+                        rp.EnableAutoEmailSend = False
+                        CmsTable.EditRecord(pst, lngresid2add, lngrecid, hs, rp)
                     End If
 
                 Catch ex As Exception
@@ -400,6 +403,7 @@ Public Class AutoProcessKqMonthlyDataByDaily : Implements HS.Platform.IAutoRunCo
             hs2save2.Add("C3_427156587581", DateAndTime.Now())
             hs2save2.Add("C3_431786850001", dt.Rows.Count.ToString())
             hs2save2.Add("REC_EDTID", hs("REC_EDTID"))
+            cp.EnableAutoEmailSend = False
             CmsTable.EditRecord(pst, 426607306969, lngrecid, hs2save2, cp)
             Dim sqlDelete As String = "delete CT424442156355 where C3_431785972216=" + Convert.ToString(hs("C3_431772278147"))
             CmsDbStatement.Execute(pst.Dbc, sqlDelete)
@@ -440,15 +444,16 @@ Public Class AutoProcessKqMonthlyDataByDaily : Implements HS.Platform.IAutoRunCo
 
                     '是否计算薪资
                     hs2save.Add("C3_439573991099", hs("C3_439572866663"))
-
+                    cp.EnableAutoEmailSend = False
                     CmsTable.AddRecord(pst, lngresid2add, hs2save, cp)
                 Catch ex As Exception
                     SLog.Err("AutoProcessKqMonthlyDataByDaily-AutoProcessKqData2-数据处理" + ex.Message + "strSQl=" + strSQl)
                 End Try
-
+                cp.EnableAutoEmailSend = False
                 CmsTable.EditRecord(pst, 426607306969, lngrecid, hs2save2, cp)
             Next
             hs2save2("C3_427156561111") = "任务添加完毕"
+            cp.EnableAutoEmailSend = False
             CmsTable.EditRecord(pst, 426607306969, lngrecid, hs2save2, cp)
             '开始循环检查是否完成
             hs2save2.Clear()
@@ -456,6 +461,7 @@ Public Class AutoProcessKqMonthlyDataByDaily : Implements HS.Platform.IAutoRunCo
             While True
 
                 Thread.Sleep(500)
+                cp.EnableAutoEmailSend = False
                 CmsTable.EditRecord(pst, 426607306969, lngrecid, hs2save2, cp)
                 Dim hsstate As Hashtable = CmsTable.GetRecordHashtableByRecID(pst, 426607306969, lngrecid)
                 If hsstate("C3_431786850001") = hsstate("C3_431786866562") Then
@@ -464,6 +470,7 @@ Public Class AutoProcessKqMonthlyDataByDaily : Implements HS.Platform.IAutoRunCo
                 End If
                 hs2save2("C3_431787287414") = "正在计算..."
             End While
+            cp.EnableAutoEmailSend = False
             CmsTable.EditRecord(pst, 426607306969, lngrecid, hs2save2, cp)
         Catch ex As Exception
             SLog.Err("AutoProcessKqMonthlyDataByDaily-AutoProcessKqData2-查询员工档案失败" + ex.Message + "strSQl=" + strSQl)
@@ -699,7 +706,8 @@ Public Class calmonthlyrpt2
                 hs2save.Add("PNID", strPnid)
                 hs2save.Add("YEARMONTH", yearmonth)
                 Try
-                    CmsTable.AddRecord(apstparm, lngresid2add, hs2save, Nothing)
+                    rp.EnableAutoEmailSend = False
+                    CmsTable.AddRecord(apstparm, lngresid2add, hs2save, rp)
                 Catch ex1 As Exception
                     SLog.Err("calmonthlyrpt1-" + ".月报记录人员编号=" + strPnid + ".考勤月份=" + yearmonth, ex1)
                 End Try
@@ -708,7 +716,8 @@ Public Class calmonthlyrpt2
                 hs = CmsTable.GetRecordHashtableByUniqueWhere(apstparm, lngresid2add, strwhere, False)
                 lngrecid = Convert.ToInt64(hs("REC_ID"))
                 Try
-                    CmsTable.EditRecord(apstparm, lngresid2add, lngrecid, hs, Nothing)
+                    rp.EnableAutoEmailSend = False
+                    CmsTable.EditRecord(apstparm, lngresid2add, lngrecid, hs, rp)
                 Catch ex2 As Exception
                     SLog.Err("calmonthlyrpt2-" + ".月报记录人员编号=" + strPnid + ".考勤月份=" + yearmonth, ex2)
                 End Try
@@ -758,12 +767,14 @@ Public Class calsalary
             If CmsDbStatement.CountBySql(apstparm.Dbc, strCountSql, Nothing) = 0 Then
                 hs2save.Add("C3_433706818455", strPnid)
                 hs2save.Add("C3_433706819172", yearmonth)
-                CmsTable.AddRecord(apstparm, lngresid2add, hs2save, Nothing)
+                rp.EnableAutoEmailSend = False
+                CmsTable.AddRecord(apstparm, lngresid2add, hs2save, rp)
             Else
                 strwhere = " C3_433706818455='" + strPnid + "'  and C3_433706819172=" + yearmonth
                 hs = CmsTable.GetRecordHashtableByUniqueWhere(apstparm, lngresid2add, strwhere, False)
                 lngrecid = Convert.ToInt64(hs("REC_ID"))
-                CmsTable.EditRecord(apstparm, lngresid2add, lngrecid, hs, Nothing)
+                rp.EnableAutoEmailSend = False
+                CmsTable.EditRecord(apstparm, lngresid2add, lngrecid, hs, rp)
             End If
             lngrecid = Convert.ToInt64(ahsparm("REC_ID"))
 

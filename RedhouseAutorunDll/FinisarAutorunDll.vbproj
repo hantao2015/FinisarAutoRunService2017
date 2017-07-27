@@ -55,13 +55,13 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="hsopPlatform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="hsopPlatform, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\onedrive\working\00RispSourceMiniUISource\RispBsUI\rispweb\bin\hsopPlatform.dll</HintPath>
+      <HintPath>H:\github\00RispSourceMiniUISource\RispBsUI\rispweb\bin\hsopPlatform.dll</HintPath>
     </Reference>
-    <Reference Include="HsPlatform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="HsPlatform, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\onedrive\working\00RispSourceMiniUISource\RispBsUI\rispweb\bin\HsPlatform.dll</HintPath>
+      <HintPath>H:\github\00RispSourceMiniUISource\RispBsUI\rispweb\bin\HsPlatform.dll</HintPath>
     </Reference>
     <Reference Include="MiniUiAppCode.Platform">
       <HintPath>C:\onedrive\working\00RispSourceMiniUISource\RispBsUI\rispweb\bin\MiniUiAppCode.Platform.dll</HintPath>
